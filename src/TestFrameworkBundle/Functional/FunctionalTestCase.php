@@ -1,13 +1,11 @@
 <?php
 
-namespace Vadiktok\TestFrameworkBundle;
+namespace Vadiktok\TestFrameworkBundle\Functional;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Vadiktok\TestFrameworkBundle\Functional\Stub\LogCollector;
 
 abstract class FunctionalTestCase extends WebTestCase
@@ -75,12 +73,6 @@ abstract class FunctionalTestCase extends WebTestCase
     protected function get($url, array $parameters = [], array $files = [], array $server = [], $content = null)
     {
         return $this->client->request('GET', $url, $parameters, $files, $server, $content);
-    }
-
-    protected function assertCountRecords(int $expected, string $className)
-    {
-        $actual = $this->getEntityManager()->getRepository($className)->getCount();
-        $this->assertEquals($expected, $actual);
     }
 
     protected function assertLog($level, $message = null, $context = null, bool $fromDataCollector = false)
